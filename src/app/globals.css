@@ -68,3 +68,19 @@ select {
     transparent
   );
 }
+
+.tech-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+
+  background-size: 48px 48px;
+
+  mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(0, 0, 0, 0.8) 15%,
+    rgba(0, 0, 0, 0.8) 85%,
+    transparent
+  );
+}
