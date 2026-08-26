@@ -6,6 +6,8 @@ import FeaturedWork from "@/components/sections/FeaturedWork";
 import Process from "@/components/sections/Process";
 import TechStack from "@/components/sections/TechStack";
 import WhyUs from "@/components/sections/WhyUs";
+import CTA from "@/components/sections/CTA";
+import Footer from "@/components/layout/Footer";
 
 export default function Home() {
   return (
@@ -18,6 +20,8 @@ export default function Home() {
       <Process />
       <TechStack />
       <WhyUs />
+      <CTA />
+      <Footer />
     </main>
   );
 }
