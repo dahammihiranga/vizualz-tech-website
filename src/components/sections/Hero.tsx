@@ -101,8 +101,8 @@ export default function Hero() {
       </motion.div>
 
       {/* Main content */}
-      <div className="relative z-10 mx-auto flex w-full max-w-[1440px] items-center px-6 py-20 md:px-10 lg:px-14">
-        <div className="max-w-[1050px]">
+      <div className="relative z-10 mx-auto flex w-full min-w-0 max-w-[1440px] items-center px-6 py-20 md:px-10 lg:px-14">
+        <div className="w-full min-w-0 max-w-[1050px]">
           {/* Eyebrow */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -118,7 +118,7 @@ export default function Hero() {
           </motion.div>
 
           {/* Main headline */}
-          <h1 className="text-[clamp(3.4rem,8.2vw,8rem)] font-extrabold leading-[0.88] tracking-[-0.065em]">
+          <h1 className="text-[clamp(3rem,13vw,8rem)] font-extrabold leading-[0.9] tracking-[-0.06em] sm:text-[clamp(3.4rem,8.2vw,8rem)]">
             <motion.span
               initial={{ opacity: 0, y: 60 }}
               animate={{ opacity: 1, y: 0 }}
@@ -166,11 +166,11 @@ export default function Hero() {
                 delay: 0.64,
                 ease: [0.16, 1, 0.3, 1],
               }}
-              className="mt-2 flex min-h-[0.95em] items-center text-[#ff1e1e]"
+              className="mt-2 block min-h-[1.9em] text-[#ff1e1e] sm:flex sm:min-h-[0.95em] sm:items-center"
             >
-              <span className="mr-[0.22em] text-white">THAT</span>
+              <span className="block text-white sm:mr-[0.22em]">THAT</span>
 
-              <span className="relative inline-flex min-w-[5.6em] overflow-hidden">
+              <span className="relative block min-h-[0.95em] overflow-hidden sm:inline-flex sm:min-w-[5.6em]">
                 <AnimatePresence mode="wait">
                   <motion.span
                     key={rotatingWords[wordIndex]}
@@ -181,7 +181,7 @@ export default function Hero() {
                       duration: 0.5,
                       ease: [0.16, 1, 0.3, 1],
                     }}
-                    className="inline-block"
+                    className="block whitespace-nowrap"
                   >
                     {rotatingWords[wordIndex]}
                   </motion.span>
@@ -195,7 +195,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 25 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.9 }}
-            className="mt-8 max-w-2xl text-base leading-7 text-white/50 md:text-lg md:leading-8"
+            className="mt-8 w-full max-w-xl text-[15px] leading-7 text-white/50 sm:text-base md:max-w-2xl md:text-lg md:leading-8"
           >
             We design and develop modern websites, software and digital
             experiences that transform ideas into powerful products.
@@ -206,13 +206,13 @@ export default function Hero() {
             initial={{ opacity: 0, y: 25 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 1.05 }}
-            className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center"
+            className="mt-9 flex w-full max-w-xl flex-col gap-3 sm:w-auto sm:max-w-none sm:flex-row sm:items-center"
           >
-            <Button href="/contact" showArrow>
+            <Button href="/contact" showArrow className="w-full sm:w-auto">
               Start a Project
             </Button>
 
-            <Button href="#work" variant="outline">
+            <Button href="#work" variant="outline" className="w-full sm:w-auto">
               Explore Our Work
               <ArrowDown
                 size={16}
