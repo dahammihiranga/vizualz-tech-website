@@ -38,9 +38,9 @@ export default function CTA() {
           transition={{ duration: 0.7 }}
           className="flex items-center gap-4"
         >
-          <span className="text-xs font-semibold tracking-[0.25em] text-[#ff1e1e]">
+          {/* <span className="text-xs font-semibold tracking-[0.25em] text-[#ff1e1e]">
             07
-          </span>
+          </span> */}
 
           <span className="h-[1px] w-10 bg-[#ff1e1e]/60" />
 

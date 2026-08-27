@@ -23,9 +23,9 @@ export default function About() {
           transition={{ duration: 0.6 }}
           className="mb-16 flex items-center gap-4 md:mb-24"
         >
-          <span className="text-xs font-semibold tracking-[0.25em] text-[#ff1e1e]">
+          {/* <span className="text-xs font-semibold tracking-[0.25em] text-[#ff1e1e]">
             01
-          </span>
+          </span> */}
 
           <span className="h-[1px] w-10 bg-[#ff1e1e]/60" />
 

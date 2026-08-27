@@ -93,7 +93,7 @@ export default async function ProjectPage({ params }: PageProps) {
               fill
               priority
               sizes="100vw"
-              className="object-cover"
+              className="object-contain"
             />
 
             <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent" />
@@ -213,31 +213,36 @@ export default async function ProjectPage({ params }: PageProps) {
                 return (
                   <div
                     key={image}
-                    className={`relative overflow-hidden rounded-[1.75rem] border border-white/[0.08] bg-[#151515] ${
-                      index === 0
-                        ? "aspect-[16/10] lg:col-span-2"
-                        : isMobileScreenshot
-                          ? "flex min-h-[650px] items-center justify-center p-6 md:min-h-[800px] md:p-10"
-                          : "aspect-[4/3]"
+                    className={`overflow-hidden rounded-[1.75rem] border border-white/[0.08] bg-[#0b0b0b] ${
+                      index === 0 ? "lg:col-span-2" : ""
                     }`}
                   >
                     {isMobileScreenshot ? (
-                      <Image
-                        src={image}
-                        alt={`${project.title} mobile website`}
-                        width={430}
-                        height={932}
-                        sizes="(max-width: 768px) 80vw, 430px"
-                        className="h-auto max-h-[760px] w-auto max-w-full rounded-[1.5rem] object-contain shadow-2xl"
-                      />
+                      <div className="flex min-h-[650px] items-center justify-center p-6 md:min-h-[800px] md:p-10">
+                        <Image
+                          src={image}
+                          alt={`${project.title} mobile website`}
+                          width={430}
+                          height={932}
+                          sizes="(max-width: 768px) 80vw, 430px"
+                          className="h-auto max-h-[760px] w-auto max-w-full rounded-[1.5rem] object-contain shadow-2xl"
+                        />
+                      </div>
                     ) : (
-                      <Image
-                        src={image}
-                        alt={`${project.title} screenshot ${index + 1}`}
-                        fill
-                        sizes="(max-width: 1024px) 100vw, 50vw"
-                        className="object-cover"
-                      />
+                      <div className="p-3 md:p-5">
+                        <Image
+                          src={image}
+                          alt={`${project.title} screenshot ${index + 1}`}
+                          width={1800}
+                          height={1200}
+                          sizes={
+                            index === 0
+                              ? "100vw"
+                              : "(max-width: 1024px) 100vw, 50vw"
+                          }
+                          className="h-auto w-full rounded-[1.25rem] object-contain"
+                        />
+                      </div>
                     )}
                   </div>
                 );

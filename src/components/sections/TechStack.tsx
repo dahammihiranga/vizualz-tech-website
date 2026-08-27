@@ -71,9 +71,9 @@ export default function TechStack() {
             transition={{ duration: 0.6 }}
             className="flex items-start gap-4"
           >
-            <span className="text-xs font-semibold tracking-[0.25em] text-[#ff1e1e]">
+            {/* <span className="text-xs font-semibold tracking-[0.25em] text-[#ff1e1e]">
               05
-            </span>
+            </span> */}
 
             <span className="mt-[7px] h-[1px] w-10 bg-[#ff1e1e]/60" />
 
