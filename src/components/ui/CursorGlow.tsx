@@ -11,6 +11,12 @@ type Particle = {
   rotate: number;
 };
 
+type ClickEffect = {
+  id: number;
+  x: number;
+  y: number;
+};
+
 const codeTokens = [
   "</>",
   "{ }",
@@ -32,6 +38,9 @@ export default function CursorGlow() {
     x: -100,
     y: -100,
   });
+
+  const [clickEffects, setClickEffects] = useState<ClickEffect[]>([]);
+  const clickIdRef = useRef(0);
 
   const [visible, setVisible] = useState(false);
   const [interactive, setInteractive] = useState(false);
@@ -88,6 +97,22 @@ export default function CursorGlow() {
       }, 1000);
     };
 
+    const handleClick = (event: MouseEvent) => {
+      const id = clickIdRef.current++;
+
+      const effect: ClickEffect = {
+        id,
+        x: event.clientX,
+        y: event.clientY,
+      };
+
+      setClickEffects((current) => [...current, effect]);
+
+      window.setTimeout(() => {
+        setClickEffects((current) => current.filter((item) => item.id !== id));
+      }, 700);
+    };
+
     const handleMouseLeave = () => {
       setVisible(false);
     };
@@ -99,11 +124,13 @@ export default function CursorGlow() {
     window.addEventListener("mousemove", handleMouseMove);
     document.addEventListener("mouseleave", handleMouseLeave);
     document.addEventListener("mouseenter", handleMouseEnter);
+    window.addEventListener("click", handleClick);
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
       document.removeEventListener("mouseleave", handleMouseLeave);
       document.removeEventListener("mouseenter", handleMouseEnter);
+      window.removeEventListener("click", handleClick);
     };
   }, []);
 
@@ -146,6 +173,179 @@ export default function CursorGlow() {
             >
               {particle.text}
             </motion.span>
+          ))}
+        </AnimatePresence>
+      </div>
+
+      {/* ============================= */}
+      {/* CLICK / EXECUTION EFFECT */}
+      {/* ============================= */}
+
+      <div
+        aria-hidden="true"
+        className="pointer-events-none fixed inset-0 z-[9998] hidden overflow-hidden lg:block"
+      >
+        <AnimatePresence>
+          {clickEffects.map((effect) => (
+            <div
+              key={effect.id}
+              className="absolute left-0 top-0"
+              style={{
+                transform: `translate(${effect.x}px, ${effect.y}px)`,
+              }}
+            >
+              {/* Main shockwave */}
+              <motion.div
+                initial={{
+                  scale: 0.2,
+                  opacity: 0.9,
+                }}
+                animate={{
+                  scale: 2.8,
+                  opacity: 0,
+                }}
+                transition={{
+                  duration: 0.55,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
+                className="absolute left-0 top-0 h-10 w-10 -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#ff1e1e]"
+              />
+
+              {/* Second inner ring */}
+              <motion.div
+                initial={{
+                  scale: 0.2,
+                  opacity: 1,
+                }}
+                animate={{
+                  scale: 1.7,
+                  opacity: 0,
+                }}
+                transition={{
+                  duration: 0.4,
+                  delay: 0.05,
+                  ease: "easeOut",
+                }}
+                className="absolute left-0 top-0 h-6 w-6 -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#ff1e1e]/70"
+              />
+
+              {/* Center flash */}
+              <motion.div
+                initial={{
+                  scale: 0,
+                  opacity: 1,
+                }}
+                animate={{
+                  scale: 3,
+                  opacity: 0,
+                }}
+                transition={{
+                  duration: 0.35,
+                }}
+                className="absolute left-0 top-0 h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ff1e1e] shadow-[0_0_20px_rgba(255,30,30,1)]"
+              />
+
+              {/* EXEC text */}
+              <motion.span
+                initial={{
+                  opacity: 0,
+                  scale: 0.7,
+                  y: 4,
+                }}
+                animate={{
+                  opacity: [0, 1, 1, 0],
+                  scale: [0.7, 1, 1, 0.9],
+                  y: -22,
+                }}
+                transition={{
+                  duration: 0.6,
+                  times: [0, 0.2, 0.6, 1],
+                }}
+                className="absolute left-0 top-0 -translate-x-1/2 whitespace-nowrap font-mono text-[8px] font-semibold tracking-[0.18em] text-[#ff1e1e]"
+              >
+                EXEC
+              </motion.span>
+
+              {/* TOP — { } */}
+              <motion.span
+                initial={{
+                  opacity: 1,
+                  x: "-50%",
+                  y: 0,
+                }}
+                animate={{
+                  opacity: 0,
+                  y: -55,
+                }}
+                transition={{
+                  duration: 0.6,
+                  ease: "easeOut",
+                }}
+                className="absolute left-0 top-0 whitespace-nowrap font-mono text-[9px] text-[#ff1e1e]/70"
+              >
+                {"{ }"}
+              </motion.span>
+
+              {/* RIGHT — => */}
+              <motion.span
+                initial={{
+                  opacity: 1,
+                  x: 0,
+                  y: "-50%",
+                }}
+                animate={{
+                  opacity: 0,
+                  x: 60,
+                }}
+                transition={{
+                  duration: 0.6,
+                  ease: "easeOut",
+                }}
+                className="absolute left-0 top-0 whitespace-nowrap font-mono text-[9px] text-[#ff1e1e]/70"
+              >
+                =&gt;
+              </motion.span>
+
+              {/* BOTTOM — 01 */}
+              <motion.span
+                initial={{
+                  opacity: 1,
+                  x: "-50%",
+                  y: 0,
+                }}
+                animate={{
+                  opacity: 0,
+                  y: 55,
+                }}
+                transition={{
+                  duration: 0.6,
+                  ease: "easeOut",
+                }}
+                className="absolute left-0 top-0 whitespace-nowrap font-mono text-[8px] text-white/40"
+              >
+                01
+              </motion.span>
+
+              {/* LEFT — </> */}
+              <motion.span
+                initial={{
+                  opacity: 1,
+                  x: 0,
+                  y: "-50%",
+                }}
+                animate={{
+                  opacity: 0,
+                  x: -60,
+                }}
+                transition={{
+                  duration: 0.6,
+                  ease: "easeOut",
+                }}
+                className="absolute left-0 top-0 whitespace-nowrap font-mono text-[8px] text-white/40"
+              >
+                {"</>"}
+              </motion.span>
+            </div>
           ))}
         </AnimatePresence>
       </div>
