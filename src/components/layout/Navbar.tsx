@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import Button from "@/components/ui/Button";
+import Image from "next/image";
 
 const navLinks = [
   { label: "About", href: "#about" },
@@ -41,22 +42,24 @@ export default function Navbar() {
     <>
       <header
         className={`fixed left-0 top-0 z-50 w-full transition-all duration-500 ${
-          scrolled
-            ? "border-b border-white/[0.06] bg-[#0d0d0d]/80 backdrop-blur-xl"
-            : "bg-transparent"
+          scrolled ? "bg-[#0d0d0d]/80 backdrop-blur-xl" : "bg-transparent"
         }`}
       >
         <div className="mx-auto flex h-20 max-w-[1440px] items-center justify-between px-6 md:px-10 lg:px-14">
           {/* Logo */}
           <Link
             href="/"
-            className="relative z-[60] flex items-center"
+            className="group relative z-[60] flex items-center"
             onClick={() => setMenuOpen(false)}
           >
-            <span className="text-xl font-extrabold tracking-[-0.04em]">
-              <span className="text-[#ff1e1e]">VIZUALZ</span>
-              <span className="ml-1 text-white">TECH</span>
-            </span>
+            <Image
+              src="/branding/vizualz-tech-logo-horizontal.png"
+              alt="VizualZ Tech"
+              width={1000}
+              height={1000}
+              priority
+              className="h-auto w-[320px] transition-all duration-500 ease-out group-hover:scale-[1.035] group-hover:drop-shadow-[0_0_14px_rgba(255,30,30,0.35)] md:w-[450px] lg:w-[300px]"
+            />
           </Link>
 
           {/* Desktop navigation */}
@@ -65,9 +68,15 @@ export default function Navbar() {
               <Link
                 key={link.label}
                 href={link.href}
-                className="relative text-sm font-medium text-white/65 transition-colors duration-300 hover:text-white"
+                className="group relative py-2 text-sm font-medium text-white/60 transition-all duration-300 hover:-translate-y-[2px] hover:text-white"
               >
-                {link.label}
+                <span className="relative z-10">{link.label}</span>
+
+                {/* Animated underline */}
+                <span className="absolute bottom-0 left-0 h-[2px] w-full origin-left scale-x-0 rounded-full bg-[#ff1e1e] transition-transform duration-300 ease-out group-hover:scale-x-100" />
+
+                {/* Small glow */}
+                <span className="absolute -bottom-[2px] left-1/2 h-[5px] w-[5px] -translate-x-1/2 scale-0 rounded-full bg-[#ff1e1e] opacity-0 shadow-[0_0_12px_#ff1e1e] transition-all duration-300 group-hover:scale-100 group-hover:opacity-100" />
               </Link>
             ))}
           </nav>
@@ -82,12 +91,16 @@ export default function Navbar() {
           {/* Mobile menu button */}
           <button
             type="button"
-            aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
+            aria-label={
+              menuOpen ? "Close navigation menu" : "Open navigation menu"
+            }
             aria-expanded={menuOpen}
             onClick={() => setMenuOpen((previous) => !previous)}
-            className="relative z-[60] flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-white lg:hidden"
+            className="group relative z-[60] flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-white transition-all duration-300 hover:scale-105 hover:border-[#ff1e1e]/50 hover:bg-[#ff1e1e]/10 hover:text-[#ff1e1e] hover:shadow-[0_0_25px_rgba(255,30,30,0.18)] active:scale-95 lg:hidden"
           >
-            {menuOpen ? <X size={21} /> : <Menu size={21} />}
+            <span className="transition-transform duration-300 group-hover:rotate-6">
+              {menuOpen ? <X size={21} /> : <Menu size={21} />}
+            </span>
           </button>
         </div>
       </header>
@@ -135,11 +148,7 @@ export default function Navbar() {
               </nav>
 
               <div>
-                <Button
-                  href="/contact"
-                  showArrow
-                  className="w-full"
-                >
+                <Button href="/contact" showArrow className="w-full">
                   Start a Project
                 </Button>
 

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { ArrowDown } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import Button from "@/components/ui/Button";
+import Image from "next/image";
 
 const rotatingWords = ["STAND OUT.", "PERFORM.", "CONVERT.", "GROW."];
 
@@ -87,14 +88,14 @@ export default function Hero() {
         <div className="relative">
           <div className="absolute inset-0 scale-110 bg-[#ff1e1e]/10 blur-[80px]" />
 
-          <span
-            className="relative block text-[clamp(15rem,25vw,30rem)] font-extrabold leading-none tracking-[-0.12em] text-transparent"
-            style={{
-              WebkitTextStroke: "1px rgba(255,255,255,0.07)",
-            }}
-          >
-            VZ
-          </span>
+          <Image
+            src="/branding/vizualz-tech-vz-icon.png"
+            alt=""
+            width={700}
+            height={700}
+            priority
+            className="h-auto w-[clamp(18rem,30vw,34rem)] opacity-20"
+          />
 
           <div className="absolute inset-0 bg-gradient-to-br from-transparent via-[#ff1e1e]/5 to-[#ff1e1e]/20 blur-3xl" />
         </div>

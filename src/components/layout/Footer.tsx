@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
+import Image from "next/image";
 
 const navigation = [
   { label: "About", href: "#about" },
@@ -24,10 +25,13 @@ export default function Footer() {
           {/* Brand */}
           <div>
             <Link href="/" className="inline-flex">
-              <span className="text-2xl font-extrabold tracking-[-0.045em]">
-                <span className="text-[#ff1e1e]">VIZUALZ</span>
-                <span className="ml-1 text-white">TECH</span>
-              </span>
+              <Image
+  src="/branding/vizualz-tech-logo-horizontal.png"
+  alt="VizualZ Tech"
+  width={200}
+  height={54}
+  className="h-9 w-auto"
+/>
             </Link>
 
             <p className="mt-5 max-w-md text-sm leading-7 text-white/35">
