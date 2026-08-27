@@ -23,6 +23,7 @@ export default function Button({
   const variants = {
     primary:
       "bg-[#ff1e1e] text-white hover:bg-[#e31717] hover:shadow-[0_0_35px_rgba(255,30,30,0.35)]",
+
     outline:
       "border border-white/15 bg-white/[0.03] text-white hover:border-[#ff1e1e]/60 hover:bg-[#ff1e1e]/10",
   };
