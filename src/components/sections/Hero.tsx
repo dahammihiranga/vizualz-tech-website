@@ -10,10 +10,6 @@ const rotatingWords = ["STAND OUT.", "PERFORM.", "CONVERT.", "GROW."];
 
 export default function Hero() {
   const [wordIndex, setWordIndex] = useState(0);
-  const [mousePosition, setMousePosition] = useState({
-    x: 50,
-    y: 30,
-  });
 
   useEffect(() => {
     const interval = window.setInterval(() => {
@@ -23,32 +19,11 @@ export default function Hero() {
     return () => window.clearInterval(interval);
   }, []);
 
-  const handleMouseMove = (event: React.MouseEvent<HTMLElement>) => {
-    const rect = event.currentTarget.getBoundingClientRect();
-
-    setMousePosition({
-      x: ((event.clientX - rect.left) / rect.width) * 100,
-      y: ((event.clientY - rect.top) / rect.height) * 100,
-    });
-  };
-
   return (
     <section
       id="home"
-      onMouseMove={handleMouseMove}
       className="relative flex min-h-screen overflow-hidden bg-[#0d0d0d] pt-20"
     >
-      {/* Mouse glow */}
-      <div
-        className="pointer-events-none absolute inset-0 z-0 hidden opacity-70 lg:block"
-        style={{
-          background: `radial-gradient(
-            600px circle at ${mousePosition.x}% ${mousePosition.y}%,
-            rgba(255, 30, 30, 0.13),
-            transparent 42%
-          )`,
-        }}
-      />
 
       {/* Ambient background glows */}
       <div className="pointer-events-none absolute -right-[10%] top-[5%] h-[550px] w-[550px] rounded-full bg-[#ff1e1e]/10 blur-[160px]" />
