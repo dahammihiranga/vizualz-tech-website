@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useRef, useState } from "react";
 import { ArrowUpRight, CheckCircle2, Loader2 } from "lucide-react";
 
 const services = [
@@ -26,6 +26,7 @@ export default function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
+  const startedAtRef = useRef(Date.now());
 
   const toggleService = (service: string) => {
     setSelectedServices((current) =>
@@ -55,6 +56,9 @@ export default function ContactForm() {
       timeline: formData.get("timeline"),
       message: formData.get("message"),
       services: selectedServices,
+      // Spam protection
+      website: formData.get("website"),
+      startedAt: startedAtRef.current,
     };
 
     try {
@@ -73,6 +77,7 @@ export default function ContactForm() {
       form.reset();
 
       setSelectedServices([]);
+      startedAtRef.current = Date.now();
       setError("");
       setSuccess(true);
     } catch (error) {
@@ -87,6 +92,21 @@ export default function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-8">
+      {/* Honeypot - real users should never fill this */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute left-[-9999px] top-auto h-[1px] w-[1px] overflow-hidden"
+      >
+        <label htmlFor="website">Website</label>
+
+        <input
+          id="website"
+          name="website"
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+        />
+      </div>
       <div>
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#ff1e1e]">
           Project Inquiry
