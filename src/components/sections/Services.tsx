@@ -49,7 +49,7 @@ export default function Services() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{
-              duration: 0.8,
+              duration: 0.45,
               ease: [0.16, 1, 0.3, 1],
             }}
           >
@@ -64,8 +64,8 @@ export default function Services() {
 
             <p className="mt-8 max-w-xl text-base leading-7 text-white/45 md:text-lg md:leading-8">
               From the first idea to the final launch, we combine design,
-              development and technology to create digital products built
-              around your business.
+              development and technology to create digital products built around
+              your business.
             </p>
           </motion.div>
         </div>
@@ -82,10 +82,17 @@ export default function Services() {
             const isActive = activeService === index;
 
             return (
-              <article
+              <motion.article
+                layout
                 key={service.number}
                 onMouseEnter={() => setActiveService(index)}
                 onMouseLeave={() => setActiveService(null)}
+                transition={{
+                  layout: {
+                    duration: 0.45,
+                    ease: [0.16, 1, 0.3, 1],
+                  },
+                }}
                 className="group relative overflow-hidden border-b border-white/[0.09]"
               >
                 {/* Hover background */}
@@ -110,7 +117,16 @@ export default function Services() {
                   className="absolute bottom-0 left-0 h-[1px] w-full origin-left bg-[#ff1e1e]"
                 />
 
-                <div className="relative grid gap-6 py-8 md:grid-cols-[70px_1fr_auto] md:items-center md:py-10 lg:grid-cols-[90px_0.9fr_1.1fr_auto] lg:gap-10">
+                <motion.div
+                  layout
+                  transition={{
+                    layout: {
+                      duration: 0.45,
+                      ease: [0.16, 1, 0.3, 1],
+                    },
+                  }}
+                  className="relative grid gap-6 py-8 md:grid-cols-[70px_1fr_auto] md:items-center md:py-10 lg:grid-cols-[90px_0.9fr_1.1fr_auto] lg:gap-10"
+                >
                   {/* Number */}
                   <span
                     className={`text-xs font-semibold tracking-[0.2em] transition-colors duration-300 ${
@@ -137,44 +153,111 @@ export default function Services() {
                   </motion.h3>
 
                   {/* Desktop description */}
-                  <div className="hidden lg:block">
-                    <AnimatePresence mode="wait">
+                  <motion.div
+                    layout
+                    className="hidden overflow-hidden lg:block"
+                    transition={{
+                      layout: {
+                        duration: 0.45,
+                        ease: [0.16, 1, 0.3, 1],
+                      },
+                    }}
+                  >
+                    <AnimatePresence mode="popLayout" initial={false}>
                       {isActive ? (
                         <motion.div
                           key="active"
-                          initial={{ opacity: 0, y: 12 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: -8 }}
-                          transition={{ duration: 0.25 }}
+                          layout
+                          initial={{
+                            opacity: 0,
+                            y: 18,
+                            filter: "blur(6px)",
+                          }}
+                          animate={{
+                            opacity: 1,
+                            y: 0,
+                            filter: "blur(0px)",
+                          }}
+                          exit={{
+                            opacity: 0,
+                            y: -8,
+                            filter: "blur(4px)",
+                          }}
+                          transition={{
+                            duration: 0.4,
+                            ease: [0.16, 1, 0.3, 1],
+                          }}
                         >
                           <p className="max-w-lg text-sm leading-6 text-white/50">
                             {service.description}
                           </p>
 
-                          <div className="mt-4 flex flex-wrap gap-2">
+                          <motion.div
+                            initial="hidden"
+                            animate="visible"
+                            variants={{
+                              hidden: {},
+                              visible: {
+                                transition: {
+                                  staggerChildren: 0.045,
+                                  delayChildren: 0.08,
+                                },
+                              },
+                            }}
+                            className="mt-4 flex flex-wrap gap-2"
+                          >
                             {service.tags.map((tag) => (
-                              <span
+                              <motion.span
                                 key={tag}
+                                variants={{
+                                  hidden: {
+                                    opacity: 0,
+                                    y: 8,
+                                    scale: 0.94,
+                                  },
+                                  visible: {
+                                    opacity: 1,
+                                    y: 0,
+                                    scale: 1,
+                                  },
+                                }}
+                                transition={{
+                                  duration: 0.3,
+                                  ease: [0.16, 1, 0.3, 1],
+                                }}
                                 className="rounded-full border border-white/[0.08] bg-white/[0.025] px-3 py-1 text-[10px] font-medium uppercase tracking-[0.12em] text-white/35"
                               >
                                 {tag}
-                              </span>
+                              </motion.span>
                             ))}
-                          </div>
+                          </motion.div>
                         </motion.div>
                       ) : (
                         <motion.p
                           key="inactive"
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          exit={{ opacity: 0 }}
+                          layout
+                          initial={{
+                            opacity: 0,
+                            y: 5,
+                          }}
+                          animate={{
+                            opacity: 1,
+                            y: 0,
+                          }}
+                          exit={{
+                            opacity: 0,
+                            y: -5,
+                          }}
+                          transition={{
+                            duration: 0.25,
+                          }}
                           className="text-xs font-medium uppercase tracking-[0.18em] text-white/20"
                         >
                           {service.shortTitle}
                         </motion.p>
                       )}
                     </AnimatePresence>
-                  </div>
+                  </motion.div>
 
                   {/* Arrow */}
                   <motion.div
@@ -210,8 +293,8 @@ export default function Services() {
                       ))}
                     </div>
                   </div>
-                </div>
-              </article>
+                </motion.div>
+              </motion.article>
             );
           })}
         </motion.div>
@@ -234,7 +317,6 @@ export default function Services() {
             className="group inline-flex items-center gap-3 text-sm font-semibold text-white"
           >
             Tell us about your idea
-
             <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#ff1e1e]">
               <ArrowUpRight
                 size={16}
