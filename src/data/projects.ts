@@ -26,7 +26,7 @@ export const projects: Project[] = [
     description:
       "A modern wedding planning website designed to showcase services, build trust and turn visitors into enquiries through a premium digital experience.",
 
-    image: "/projects/chathu-wedding-planners.png",
+    image: "/projects/chathu-wedding-planners.PNG",
 
     url: "https://chathuweddingplanners.com/",
 
@@ -66,8 +66,8 @@ export const projects: Project[] = [
     ],
 
     gallery: [
-      "/projects/chathu-wedding-site/home.png",
-      "/projects/chathu-wedding-site/services.png",
+      "/projects/chathu-wedding-site/home.PNG",
+      "/projects/chathu-wedding-site/services.PNG",
       "/projects/chathu-wedding-site/mobile.png",
     ],
   },

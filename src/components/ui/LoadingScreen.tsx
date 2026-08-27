@@ -18,18 +18,53 @@ export default function LoadingScreen() {
   useEffect(() => {
     const audio = new Audio("/sounds/boot.mp3");
 
-    audio.volume = 0.18;
-    audio.currentTime = 0;
+  audio.preload = "auto";
+  audio.volume = 0.18;
 
-    const playBootSound = async () => {
-      try {
-        await audio.play();
-      } catch (error) {
-        console.log("Boot sound autoplay blocked:", error);
-      }
-    };
+  let soundPlayed = false;
 
-    playBootSound();
+  const playSound = async () => {
+    if (soundPlayed) return;
+
+    try {
+      audio.currentTime = 0;
+
+      await audio.play();
+
+      soundPlayed = true;
+
+      removeInteractionListeners();
+    } catch {
+      // Browser blocked autoplay.
+      // Sound will be triggered by the first valid interaction instead.
+    }
+  };
+
+  const playAfterInteraction = () => {
+    void playSound();
+  };
+
+  const removeInteractionListeners = () => {
+    window.removeEventListener("pointerdown", playAfterInteraction);
+    window.removeEventListener("keydown", playAfterInteraction);
+    window.removeEventListener("touchstart", playAfterInteraction);
+  };
+
+  // Try immediately on every full reload.
+  void playSound();
+
+  // Fallback if autoplay is blocked.
+  window.addEventListener("pointerdown", playAfterInteraction, {
+    once: true,
+  });
+
+  window.addEventListener("keydown", playAfterInteraction, {
+    once: true,
+  });
+
+  window.addEventListener("touchstart", playAfterInteraction, {
+    once: true,
+  });
 
     const interval = window.setInterval(() => {
       setCurrentStep((current) => {
