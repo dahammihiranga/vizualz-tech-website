@@ -21,7 +21,7 @@ export default function CTA() {
           repeat: Infinity,
           ease: "easeInOut",
         }}
-        className="pointer-events-none absolute left-1/2 top-1/2 h-[650px] w-[650px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ff1e1e]/10 blur-[180px]"
+        className="pointer-events-none absolute right-[5%] top-1/2 h-[650px] w-[650px] -translate-y-1/2 rounded-full bg-[#ff1e1e]/10 blur-[180px]"
       />
 
       {/* Subtle grid */}
@@ -50,6 +50,136 @@ export default function CTA() {
         </motion.div>
 
         <div className="mt-16 md:mt-24">
+          {/* Animated Digital Core */}
+          <div className="pointer-events-none absolute right-[2%] top-[13%] hidden h-[420px] w-[420px] items-center justify-center xl:flex">
+            {/* Outer rotating ring */}
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{
+                duration: 24,
+                repeat: Infinity,
+                ease: "linear",
+              }}
+              className="absolute h-[380px] w-[380px] rounded-full border border-dashed border-white/[0.08]"
+            />
+
+            {/* Middle reverse ring */}
+            <motion.div
+              animate={{ rotate: -360 }}
+              transition={{
+                duration: 17,
+                repeat: Infinity,
+                ease: "linear",
+              }}
+              className="absolute h-[290px] w-[290px] rounded-full border border-[#ff1e1e]/15"
+            >
+              {/* Orbit node */}
+              <div className="absolute left-1/2 top-[-4px] h-2 w-2 -translate-x-1/2 rounded-full bg-[#ff1e1e] shadow-[0_0_18px_rgba(255,30,30,0.8)]" />
+            </motion.div>
+
+            {/* Inner rotating ring */}
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{
+                duration: 10,
+                repeat: Infinity,
+                ease: "linear",
+              }}
+              className="absolute h-[200px] w-[200px] rounded-full border border-dashed border-white/[0.1]"
+            >
+              <div className="absolute bottom-[18px] right-[18px] h-1.5 w-1.5 rounded-full bg-white/60" />
+            </motion.div>
+
+            {/* Crosshair */}
+            <div className="absolute h-[1px] w-[330px] bg-gradient-to-r from-transparent via-white/[0.07] to-transparent" />
+
+            <div className="absolute h-[330px] w-[1px] bg-gradient-to-b from-transparent via-white/[0.07] to-transparent" />
+
+            {/* Pulsing core */}
+            <motion.div
+              animate={{
+                scale: [1, 1.12, 1],
+                opacity: [0.4, 0.8, 0.4],
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+              className="absolute h-32 w-32 rounded-full bg-[#ff1e1e]/10 blur-[35px]"
+            />
+
+            {/* Center */}
+            <motion.div
+              animate={{
+                scale: [1, 1.04, 1],
+              }}
+              transition={{
+                duration: 4,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+              className="relative flex h-28 w-28 items-center justify-center rounded-full border border-[#ff1e1e]/25 bg-[#0d0d0d]/80 backdrop-blur-sm"
+            >
+              <div className="text-center">
+                <motion.p
+                  animate={{
+                    opacity: [1, 0.45, 1],
+                  }}
+                  transition={{
+                    duration: 1.8,
+                    repeat: Infinity,
+                  }}
+                  className="font-mono text-[9px] uppercase tracking-[0.28em] text-[#ff1e1e]"
+                >
+                  SYSTEM
+                </motion.p>
+
+                <p className="mt-1 font-mono text-xl font-bold tracking-[-0.05em] text-white">
+                  &gt;_
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Orbit labels */}
+            <motion.span
+              animate={{ opacity: [0.25, 0.7, 0.25] }}
+              transition={{ duration: 3, repeat: Infinity }}
+              className="absolute left-3 top-1/2 font-mono text-[8px] uppercase tracking-[0.22em] text-white/40"
+            >
+              DESIGN
+            </motion.span>
+
+            <motion.span
+              animate={{ opacity: [0.7, 0.25, 0.7] }}
+              transition={{ duration: 3.5, repeat: Infinity }}
+              className="absolute right-0 top-[32%] font-mono text-[8px] uppercase tracking-[0.22em] text-white/40"
+            >
+              BUILD
+            </motion.span>
+
+            <motion.span
+              animate={{ opacity: [0.25, 0.7, 0.25] }}
+              transition={{ duration: 4, repeat: Infinity }}
+              className="absolute bottom-5 left-1/2 -translate-x-1/2 font-mono text-[8px] uppercase tracking-[0.22em] text-white/40"
+            >
+              DEPLOY
+            </motion.span>
+
+            {/* Scanner */}
+            <motion.div
+              animate={{
+                y: [-150, 150, -150],
+                opacity: [0, 0.6, 0],
+              }}
+              transition={{
+                duration: 5,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+              className="absolute h-[1px] w-[260px] bg-gradient-to-r from-transparent via-[#ff1e1e]/60 to-transparent"
+            />
+          </div>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -68,7 +198,7 @@ export default function CTA() {
               duration: 0.9,
               ease: [0.16, 1, 0.3, 1],
             }}
-            className="max-w-[1200px] text-[clamp(4rem,10vw,10rem)] font-extrabold leading-[0.86] tracking-[-0.07em]"
+            className="relative z-10 max-w-[1200px] text-[clamp(4rem,10vw,10rem)] font-extrabold leading-[0.86] tracking-[-0.07em]"
           >
             LET&apos;S BUILD
             <span className="block text-white/35">SOMETHING</span>
@@ -84,8 +214,8 @@ export default function CTA() {
             >
               <p className="max-w-xl text-base leading-7 text-white/45 md:text-lg md:leading-8">
                 Whether you&apos;re starting with a new idea or improving an
-                existing digital product, we&apos;d love to hear what you&apos;re
-                working on.
+                existing digital product, we&apos;d love to hear what
+                you&apos;re working on.
               </p>
 
               <a
@@ -95,7 +225,6 @@ export default function CTA() {
                 <span className="flex h-10 w-10 items-center justify-center rounded-full border border-white/[0.1] bg-white/[0.03] transition-all duration-300 group-hover:border-[#ff1e1e]/60 group-hover:bg-[#ff1e1e]/10">
                   <Mail size={16} className="text-[#ff1e1e]" />
                 </span>
-
                 hello@vizualztech.com
               </a>
             </motion.div>
